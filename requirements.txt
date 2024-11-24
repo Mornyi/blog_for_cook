@@ -1,0 +1,8 @@
+asgiref==3.3.4
+Django
+django-mptt
+Pillow
+pytz==2021.1
+sqlparse==0.4.1
+django-debug-toolbar
+django-ckeditor
