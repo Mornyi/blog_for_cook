@@ -6,17 +6,17 @@
   <div class="sidebar__item">
     <div class="sidebar__about__item">
       <div class="sidebar__item__title">
-        <h6>About me</h6>
+        <h6>Обо мне</h6>
       </div>
       {% get_about as about %}
       <img src="{{ about.get_first_image }}" alt="">
-      <h6>Hi every one! I,m <span>{{ about.name }}</span></h6>
+      <h6>Приветствую на своём сайте, я автор данного сайта, на котором будут публиковаться различные рецепты и новости из кулинарного мира... <span>{{ about.name }}</span></h6>
       <p>{{ about.mini_text|safe }}</p>
-      <a href="{% url 'about' %}" class="primary-btn">Read more</a>
+      <a href="{% url 'about' %}" class="primary-btn">Читать далее</a>
     </div>
     <div class="sidebar__follow__item">
       <div class="sidebar__item__title">
-        <h6>Follow me</h6>
+        <h6>Подписывайтесь чтобы следить за новостями</h6>
       </div>
       {% get_social_links as social_links %}
       <div class="sidebar__item__follow__links">
@@ -30,24 +30,24 @@
     </div>
     <div class="sidebar__item__categories">
       <div class="sidebar__item__title">
-        <h6>Categories</h6>
+        <h6>Категории</h6>
       </div>
     {% include './sidebar_category.html' %}
 
     </div>
     <div class="sidebar__subscribe__item">
       <div class="sidebar__item__title">
-        <h6>Subscribe</h6>
+        <h6>Подписывайтесь</h6>
       </div>
-      <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
+      <p>Подпишитесь на нашу рассылку и получайте наши самые свежие обновления прямо на свой почтовый ящик!</p>
       <form action="#">
         <input type="text" class="email-input" placeholder="Your email">
         <label for="s-agree-check">
-          I agree to the terms & conditions
+          Я согласен с условиями
           <input type="checkbox" id="s-agree-check">
           <span class="checkmark"></span>
         </label>
-        <button type="submit" class="site-btn">Subscribe</button>
+        <button type="submit" class="site-btn">Подписаться</button>
       </form>
     </div>
   </div>
