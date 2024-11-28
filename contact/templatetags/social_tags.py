@@ -13,5 +13,5 @@ def get_social_links():
 
 @register.simple_tag()
 def get_about():
-    """Вывод about"""
+    """Вывод обо мне"""
     return About.objects.last()
