@@ -1,10 +1,13 @@
 from ckeditor.fields import RichTextField
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from mptt.models import MPTTModel, TreeForeignKey
+
+User = get_user_model()
+
 
 class Category(MPTTModel):
     name = models.CharField(max_length=100)
@@ -41,7 +44,8 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, related_name="posts", on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='articles/')
     text = models.TextField()
@@ -98,23 +102,9 @@ class Comment(models.Model):
     website = models.CharField(max_length=150, blank=True, null=True)
     message = models.TextField(max_length=500)
     create_at = models.DateTimeField(default=timezone.now)
-    post = models.ForeignKey(Post, related_name="comment", on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, related_name="comment", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'комментарий'
         verbose_name_plural = 'Комментарии'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

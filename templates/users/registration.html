@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+        <div class="card">
+            <div class="card-header">
+                Регистрация
+            </div>
+            <div class="card-body">
+                {# Этот блок будет показан, если в форме есть ошибки #}
+                {% if form.errors %}
+                {% for field in form.visible_fields %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    {{ error|escape }}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ error|escape }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <form method="post" action="{% url 'users:signup' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {% if field.id_for_label != 'id_is_student'%}
+                    <div class="form-group row my-3 p-3">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                            {% if field.field.required %}
+                            <span class="required text-danger">*</span>
+                            {% endif %}
+                        </label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                            {{ field.help_text|safe }}
+                        </small>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    {{ field }}
+                    {% endif %}
+                    {% endfor %}
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            Зарегистрироваться
+                        </button>
+                    </div>
+                </form>
+            </div> <!-- card body -->
+        </div> <!-- card -->
+    </div> <!-- col -->
+</div> <!-- row -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').select2();
+    });
+</script>
+{% endblock content %}

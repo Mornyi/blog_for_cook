@@ -11,8 +11,10 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
     path('', include('contact.urls')),
-    path('', include('blog.urls')),
+    path('blog/', include('blog.urls')),
+    path('auth/', include('users.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

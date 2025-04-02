@@ -1,8 +1,10 @@
 asgiref==3.3.4
-Django
-django-mptt
-Pillow
+Django==3.2.25
+django-ckeditor==6.7.2
+django-debug-toolbar==4.3.0
+django-js-asset==2.2.0
+django-mptt==0.16.0
+legacy-cgi==2.6.3
+pillow==11.2.0
 pytz==2021.1
 sqlparse==0.4.1
-django-debug-toolbar
-django-ckeditor

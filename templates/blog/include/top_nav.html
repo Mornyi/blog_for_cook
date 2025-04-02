@@ -8,6 +8,8 @@
     {% get_categories %}
     <li><a href="{% url 'about' %}">О нас</a></li>
     <li><a href="{% url 'contact' %}">Контакты</a></li>
+    <li><a href="{% url 'users:signup' %}">Зарегистрироваться</a></li>
+    <li><a href="{% url 'users:login' %}">Войти</a></li>
   </ul>
 </nav>
 {% endcache %}
