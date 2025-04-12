@@ -9,13 +9,13 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-            'usernickname',
+            'username',
             'email',
             'password1',
             'password2'
         )
         labels = {
-            'usernickname': 'Имя пользователя',
+            'username': 'Имя пользователя',
             'email': 'Электронная почта',
             'password1': 'Пароль',
             'password2': 'Подтверждение пароля',

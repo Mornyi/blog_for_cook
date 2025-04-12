@@ -51,7 +51,7 @@ class Post(models.Model):
     text = models.TextField()
     category = models.ForeignKey(
         Category,
-        related_name="post",
+        related_name="posts",
         on_delete=models.SET_NULL,
         null=True
     )
@@ -63,7 +63,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("post_single", kwargs={"slug": self.category.slug, "post_slug": self.slug})
+        return reverse('blog:post_single', args=[self.category.slug, self.slug])
 
     def get_recipes(self):
         return self.recipes.all()
@@ -97,14 +97,32 @@ class Recipe(models.Model):
 
 
 class Comment(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
-    website = models.CharField(max_length=150, blank=True, null=True)
-    message = models.TextField(max_length=500)
-    create_at = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(
+        User,
+        related_name="comments",
+        on_delete=models.CASCADE,
+        verbose_name="автор"
+    )
+    message = models.TextField(
+        max_length=500,
+        blank=False,
+        verbose_name="сообщение"
+    )
+    created_at = models.DateTimeField(
+        default=timezone.now,
+        verbose_name="дата создания"
+    )
     post = models.ForeignKey(
-        Post, related_name="comment", on_delete=models.CASCADE)
+        Post,
+        related_name="comments",
+        on_delete=models.CASCADE,
+        verbose_name="пост"
+    )
 
     class Meta:
         verbose_name = 'комментарий'
         verbose_name_plural = 'Комментарии'
+        ordering = ['-created_at']  # новые комментарии сверху
+
+    def __str__(self):
+        return f"Комментарий от {self.author.username} ({self.created_at})"

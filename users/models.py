@@ -52,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     Кастомная модель пользователя
     '''
 
-    usernickname = models.CharField(
+    username = models.CharField(
         max_length=50,
         blank=False,
         null=False,

@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from .models import Post, Comment
 from .forms import CommentForm
 
@@ -22,21 +23,25 @@ class PostDetailView(DetailView):
     context_object_name = "post"
     slug_url_kwarg = 'post_slug'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = CommentForm()
-        return context
+    def get_object(self, queryset=None):
+        return Post.objects.get(
+            category__slug=self.kwargs['slug'],
+            slug=self.kwargs['post_slug']
+        )
 
 
-class CreateComment(CreateView):
+class CreateComment(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
+    template_name = 'blog/post_detail.html'  # Укажите ваш шаблон
 
     def form_valid(self, form):
-        form.instance.post_id = self.kwargs.get('pk')
-        self.object = form.save()
+        form.instance.author = self.request.user  # Автор = текущий пользователь
+        form.instance.post_id = self.kwargs.get('pk')  # Привязка к посту
         return super().form_valid(form)
 
     def get_success_url(self):
-        return self.object.post.get_absolute_url()
-
+        return reverse_lazy('blog:post_single', kwargs={
+            'slug': self.object.post.category.slug,
+            'post_slug': self.object.post.slug
+        })
