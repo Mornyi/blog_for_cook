@@ -2,15 +2,8 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import CreateView
 
-from .models import ContactLink, About
+from .models import About
 from .forms import ContactForm
-
-
-class ContactView(View):
-    def get(self, request):
-        contacts = ContactLink.objects.all()
-        form = ContactForm()
-        return render(request, 'contact/contact.html', {"contacts": contacts, "form": form})
 
 
 class CreateContact(CreateView):

@@ -4,10 +4,10 @@
   <a href="#">Категории</a>
   <ul class="dropdown__menu">
     {% recursetree list_category %}
-    <li>
+    <li class="menu-item{% if not node.is_leaf_node %} has-children{% endif %}">
       <a href="{% url 'blog:post_list' node.slug %}">{{ node.name }}</a>
       {% if not node.is_leaf_node %}
-      <ul class="children">
+      <ul class="sub-menu">
         {{ children }}
       </ul>
       {% endif %}

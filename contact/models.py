@@ -6,7 +6,7 @@ class ContactModel(models.Model):
     # """ Класс модели обратной связи"""
     name = models.CharField(max_length=50)
     email = models.EmailField()
-    website = models.URLField(blank=True, null=True)
+    # website = models.URLField(blank=True, null=True)
     message = models.TextField(max_length=5000)
     create_at = models.DateTimeField(auto_now_add=True)
 
@@ -17,18 +17,6 @@ class ContactModel(models.Model):
         verbose_name = 'контакт'
         verbose_name_plural = 'Контакты'
 
-
-class ContactLink(models.Model):
-    # """ Класс модели контактов """
-    icon = models.FileField(upload_to="icons/")
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = 'ссылку на контакт'
-        verbose_name_plural = 'Ссылки на контакты'
 
 
 class About(models.Model):
